@@ -18,6 +18,7 @@ int main() {
     double d = square_root(number);
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
+    //cout prints to standard output(=1 in bash), cerr to standard error(=2 in bash)
   } catch (const Negative_number) {
     std::cerr << "The square root of a negative number is a complex. "
                  "square_root() is\n"
@@ -29,7 +30,7 @@ int main() {
               << "This means there is a bug in the algorithm that generated "
                  "this number.\n";
     return 2;
-  } catch (...) {
+  } catch (...) { //with ... I catch all other exceptions
     std::cerr << "Unknown exception. Aborting.\n";
     return 3;
   }

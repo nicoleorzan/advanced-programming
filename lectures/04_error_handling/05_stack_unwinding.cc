@@ -37,7 +37,7 @@ class ManyResources {
     std::cout << "Manyresources\n";
     try {
       // AP_error("Error in ManyResources ctor\n"); // what happens here?
-      ptr = new double[5];  // new(std::nothrow) double[5] could be better
+      ptr = new double[5];  // new(std::nothrow) double[5] could be better->exception not thrown
       AP_error("Error in ManyResources ctor\n");
     } catch (...) {
       delete[] ptr;  // <----
@@ -45,18 +45,18 @@ class ManyResources {
     }
   }
 
-  ~ManyResources() noexcept {
+  ~ManyResources() noexcept {//a destructor can never throw an exception
     std::cout << "Manyresources\n";
     delete[] ptr;  // <----
   }
 };
-
+//if we go out from a constructor in a bad way, a destructor can't be called
 int main() {
   Foo f;
   int* raw_ptr = new int[7];
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
-    // inside the catch-clause
+    // inside the catch-clause (visible only into try)
     ManyResources mr;
     Bar b;
 

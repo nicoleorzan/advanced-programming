@@ -19,6 +19,7 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& s) {
+    //qui passiamo una referenza perche e piu leggera di un oggetto che potrebbe essere grande
     std::cerr << s.message << std::endl;
     return 1;
   } catch (...) {
@@ -32,6 +33,7 @@ double square_root(const double d) {
   if (d < 0)
     throw Square_root_invalid{"Cannot handle negative numbers. You gave me " +
                               std::to_string(d)};
+  //to_string included in iostream
   if (d > 50)
     throw Square_root_invalid{
         "The argument of square_root must be lower than 50. You gave me " +

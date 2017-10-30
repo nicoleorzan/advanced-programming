@@ -34,9 +34,9 @@ double square_root(const double d) {
         "Do you really need to call a function to compute the square root of "
         "0???\n");
   if (d < 0)
-    ap::error("Cannot handle negative numbers. I got", d);
+    ap::error("Cannot handle negative numbers. I got", d);//I can put here after d as many parameters as I want
   if (d > 50)
     AP_error("The argument of square_root must be lower than 50. I got", d);
-
+  //ap::internal::pretty_error(__FILE__,...);
   return sqrt(d);
 }
