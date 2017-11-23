@@ -5,7 +5,7 @@ template <typename num>
 class Vector {
   std::size_t _size;
   std::unique_ptr<num[]> elem;
-
+  //here only the unique pointer is responsable to delete the things that it is pointing to
  public:
   explicit Vector(const std::size_t length)
       : _size{length}, elem{new num[length]{}} {}
@@ -25,6 +25,6 @@ class Vector {
 
 int main() {
   Vector<double> v1{7};
-  // Vector<double> v2{v1}; // default copy ctor
+  // Vector<double> v2{v1}; // default copy ctor. this gives me compiler error
   return 0;
 }

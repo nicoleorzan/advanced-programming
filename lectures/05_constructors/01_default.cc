@@ -5,12 +5,12 @@ struct S {
   int a;
   double b;
   std::string s;  // default ctor of string set s to empty string
-  // S() = default;
+  // S() = default; //if I comment or not this line is the same because the compiler will generate a default constructor for me.
 };
 
 int main() {
   S s1;  // calls default constructor
-
+  //the third element will be initialized to the empty string
   S s2{1, 2.3, "alberto"};  // if there are no custom ctors I can
                             // directly initialize the members. Note
                             // that I need access (i.e. they must be

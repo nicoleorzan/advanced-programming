@@ -7,7 +7,9 @@ class Vector {
 
  public:
   explicit Vector(const std::size_t length)
-      : _size{length}, elem{new num[length]{}} {}
+    : _size{length}, elem{new num[length]{}} {} //here I initialize my members
+
+  Vector() = default;// if I don't put this the compiler won't create a default constructor
 
   ~Vector() { delete[] elem; }
 
@@ -29,3 +31,7 @@ int main() {
   Vector<double> v2{v1};  // default copy constructor
   return 0;
 }
+
+//error: double free. means that I try to delete the same part of memory at least twice
+//here I create two pointers that contain the same adress(shallow copy). what you do on one of the two, affects the other one
+//the object are constructed in order and distructed in reverse order. delecting the first one I delete what v2 and v1 are pointing to.

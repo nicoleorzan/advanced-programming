@@ -12,13 +12,14 @@ struct Y {
   double b;
   char c = 'a';
   Y() : a{5} {}  // what it is written here wins the in-class initialization
+  //the constructor here overwrites the value of a. b will be set to 0
   // Y() = default;
 };
 
 int main() {
   X x1;    // default ctor
   X x2{};  // default ctor
-  // X x3 {1,2.3,'t'}; // compile error - fixed
+  // X x3 {1,2.3,'t'}; // compile error - fixed with c++ 17
   std::cout << x1.a << "--" << x1.b << "--" << x1.c << "\n";
   std::cout << x2.a << "--" << x2.b << "--" << x2.c << "\n\n";
 

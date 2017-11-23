@@ -22,8 +22,8 @@ class Vector {
 
   // default ctor
   Vector() { std::cout << "default ctor\n"; }
-  // Vector() = default;
-  // Vector() : _size{}, elem{} { std::cout << "default ctor\n"; }
+  // Vector() = default; //same of the one above
+  // Vector() : _size{}, elem{} { std::cout << "default ctor\n"; } //same but with members initialied to zero
 
   // copy semantics
   // copy ctor -- deep copy
@@ -34,7 +34,7 @@ class Vector {
 
   // move semantics
   // move ctor
-  Vector(Vector&& v) noexcept
+  Vector(Vector&& v) noexcept // noexcept doesn't allocate any new member (and so any new memory)
       : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
   }
@@ -44,7 +44,7 @@ class Vector {
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);
-    return *this;
+    return *this;//pointer to itself
   }
 
   const num& operator[](const std::size_t& i) const noexcept { return elem[i]; }
@@ -84,7 +84,7 @@ Vector<num>& Vector<num>::operator=(const Vector& v) {
   _size = v._size;
   elem.reset(new num[_size]);
 
-  // for (std::size_t i = 0; i < _size; ++i)
+  // for (std::size_t i = 0; i < _size; ++i) //same of two lines above
   //   elem[i] = v[i];
 
   std::copy(v.begin(), v.end(), this->begin());
@@ -121,7 +121,7 @@ int main() {
     Vector<int> v0;
     std::cout << v0.size() << "\n";
     std::cout << "Vector<int> v00{}; calls\n";
-    Vector<int> v00{};
+    Vector<int> v00{}; // it won't be initialized because we created a default constructor of vector
     std::cout << v00.size() << "\n";
 
     std::cout << "\nVector<double> v1{5}; calls\n";
@@ -157,7 +157,7 @@ int main() {
 
     std::cout << "v4 = " << v4;
 
-    std::cout << "\nNRVO: Named Return Value Optimization\n";
+    std::cout << "\nNRVO: Named Return Value Optimization\n";//copy elision
 
     std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
     v4 = v3 + v3 + v2 + v3;
