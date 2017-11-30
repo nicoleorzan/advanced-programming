@@ -63,7 +63,7 @@ class Date{
 public:
   
   Date(unsigned int day, Month month, unsigned int year){
-    if(day<31 && int(month)<12){ //sistemare
+    if(day<31 && int(month)<13){ //sistemare
       _d=day;
       _m=month;
       _y=year;
@@ -76,6 +76,13 @@ public:
   unsigned int get_year() const {return _y;}
   
   void add_days(const unsigned int n);
+
+  bool is_leap(unsigned int _y){
+    if (_y%4 == 0){
+      if(_y%400!=0 ) return 1;
+      else return 0;
+    }
+  }
   
   };
 
@@ -116,20 +123,17 @@ int main(){
   cout<<"Data inserita:"<<endl;
   std::cout << data << '\n';
   //dwim(mese);
-  //cout<<", anno "<<year<<endl;
-
 
   unsigned int numero;
   cout<<"inserire giorni da aggiungere: ";
   cin>>numero;
-  const unsigned int n=numero;
+  const unsigned int n = numero;
   cout<<"dopo "<<n<<" giorni sara` il ";
   data.add_days(n);
   std::cout << data << '\n';
     
   
   //int a2 = int(data.get_month());
-  //cout<<", mese "<<a2;
   /*cout<<data.get_day();
   dwim(data.get_month());
   cout<<", anno "<<data.get_year()<<endl;*/
@@ -141,51 +145,22 @@ int main(){
 
 
 void Date::add_days(const unsigned int n){
-    if (int(_m)==1 || int(_m)==3 || int(_m)==5 || int(_m)==7 || int(_m)==8 || int(_m)==10 || int(_m)==12){
-      for(int i=0;i<n;i++){
-	if (_d<31) Date::add_singleday();
-	else if (_d==31){
-	  _d=1;
-	  if(int(_m)!=12){
-	  int temp=int(_m)+1;
-	  _m = (Month)temp;
-	  }else{
-	    _m = (Month)1;
-	    _y+=1;
-	  }
-	}
+  int var=0;
+  if (int(_m)==1 || int(_m)==3 || int(_m)==5 || int(_m)==7 || int(_m)==8 || int(_m)==10 || int(_m)==12) var=31;
+  else if (int(_m)==4 || int(_m)==6 || int(_m)==9 || int(_m)==11 ) var=30;
+  else if (int(_m)==2) var=29;
+  for(int i=0;i<n;i++){
+    if (_d<var) Date::add_singleday();
+    else if (_d==var){
+      _d=1;
+      if(int(_m)!=12){
+	int temp=int(_m)+1;
+	_m = (Month)temp;
+      }else{
+	_m = (Month)1;
+	_y+=1;
       }
     }
-    else if (int(_m)==4 || int(_m)==6 || int(_m)==9 || int(_m)==11 ){
-      for(int i=0;i<n;i++){
-	if (_d<31) Date::add_singleday();
-	else if(_d==31){
-	  _d=1;
-	  if(int(_m)!=12){
-	    int temp=int(_m)+1;
-	    _m = (Month)temp;
-	  }else{
-	    _m = (Month)1;
-	    _y+=1;
-	  }
-	}
-      }
-    }
-    else if (int(_m)==2){
-      for(int i=0;i<n;i++){
-	if (_d<29) Date::add_singleday();
-	else if(_d==29){
-	  _d=1;
-	  if(int(_m)!=12){
-	    int temp=int(_m)+1;
-	    _m = (Month)temp;
-	  }else{
-	    _m = (Month)1;
-	    _y+=1;
-	  }
-
-	}
-      }
-    }
-    
   }
+  
+}
