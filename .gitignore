@@ -1,2 +1,9 @@
 bucket*
 *as_src*
+# 
+*.swp
+.ipynb_checkpoints
+.*
+__pycache__
+*pyc
+
