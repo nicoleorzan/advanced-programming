@@ -6,6 +6,7 @@ using namespace std;
 enum class Month{
   jan=1,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
     };
+  struct Invalid_date {};
 
 void dwim(Month c) {
   switch (c) {
@@ -51,7 +52,6 @@ void dwim(Month c) {
   }
 }
 
-
 class Date{
 
   unsigned int _d;
@@ -63,13 +63,15 @@ class Date{
 public:
   
   Date(unsigned int day, Month month, unsigned int year){
-    if(day<31 && int(month)<13){ //sistemare
+    if(day<31 && int(month)<13){
       _d=day;
       _m=month;
       _y=year;
-    } else cout<<"invalid date"<<endl;
+    } else {
+      throw Invalid_date{};//cout<<"invalid date"<<endl};
+    }
   }
-  ~Date(){};//qui non ho capito perche` senza le graffe mi da errore
+  ~Date(){};
   
   unsigned int get_day() const {return _d;}
   Month get_month() const { return _m;}
@@ -107,7 +109,7 @@ std::istream& operator>>(std::istream& is, Month& mese){
 
 
 int main(){
-
+  try{
   unsigned int day;
   unsigned int year;
   Month mese;// = Month::feb;
@@ -122,7 +124,6 @@ int main(){
   
   cout<<"Data inserita:"<<endl;
   std::cout << data << '\n';
-  //dwim(mese);
 
   unsigned int numero;
   cout<<"inserire giorni da aggiungere: ";
@@ -132,13 +133,17 @@ int main(){
   data.add_days(n);
   std::cout << data << '\n';
     
-  
   //int a2 = int(data.get_month());
-  /*cout<<data.get_day();
+  cout<<data.get_day();
   dwim(data.get_month());
-  cout<<", anno "<<data.get_year()<<endl;*/
+  cout<<", anno "<<data.get_year()<<endl;
   
-    return 0;
+  return 0;
+  } catch (const Invalid_date){
+    std::cerr<<"Invalid date!\n";
+    return 1;
+  }
+  
   }
 
 
