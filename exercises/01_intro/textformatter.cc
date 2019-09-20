@@ -11,7 +11,7 @@ using namespace std;
 
 
 int main(){
-  double tstart,ctime;
+  double tstart, ctime;
   struct timespec ts;
   tstart = TCPU_TIME;
 
@@ -51,7 +51,7 @@ int main(){
   cout<<line<<endl;
   
   
-  ctime += TCPU_TIME - tstart;
+  ctime = TCPU_TIME - tstart;
   cout<<"cpu time: "<<ctime<<endl;
   
   return 0;

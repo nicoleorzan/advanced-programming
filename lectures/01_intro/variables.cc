@@ -68,7 +68,7 @@ int main() {
   test = a != b;
 
   if (test) {
-    std::cout << "test is true\n";
+    std::cout << "test is true\n"; //test =1
   } else {
     std::cout << "test is false\n";
   }
